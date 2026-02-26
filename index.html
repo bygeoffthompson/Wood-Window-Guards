@@ -9,6 +9,47 @@
     <title>Wood Window Guards</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
 </head>
+<style>
+    .window-guard{border:15px solid #111;margin:0 auto;}
+    .window-sm{
+        --w:5px;
+        --n:6;
+        background: linear-gradient(90deg, #0000 calc(100% - var(--w)), #111 0);
+        background-size: calc((100% - var(--n)*var(--w))/(var(--n) + 1) + var(--w)) 100%;
+        min-height:150px;
+        p > span {
+            background:rgba(255,255,255,.8);
+            padding:3px;
+        }
+    }
+    .window-md{
+        --w:5px;
+        --n:8;
+        background: linear-gradient(90deg, #0000 calc(100% - var(--w)), #efefef 0);
+        background-size: calc((100% - var(--n)*var(--w))/(var(--n) + 1) + var(--w)) 100%;
+        border-color:#efefef;
+        min-height:225px;
+    }
+    .window-lg{
+        --w:5px;
+        --n:10;
+        background: linear-gradient(90deg, #0000 calc(100% - var(--w)), #f0e0bb 0);
+        background-size: calc((100% - var(--n)*var(--w))/(var(--n) + 1) + var(--w)) 100%;
+        border-color:#f0e0bb;
+        min-height:300px;
+    }
+    @media(max-width:991px){
+        .window-sm{max-width: 75%}
+        .window-md{max-width: 85%}
+    }
+    @media(max-width:400px){
+        .window-guard{--n:6;}
+        .window-sm{--n:4;}
+    }
+    @media(min-width:768px) and (max-width:991px){
+        .window-sm{--n:8;}
+    }
+</style>
 <body>
     <nav class="bg-light navbar navbar-expand-sm">
         <div class="container">
@@ -44,7 +85,7 @@
             <div class="align-items-center d-flex justify-content-center">
                 <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="#198754" class="bi bi-check" viewBox="0 0 16 16">
                     <path d="M10.97 4.97a.75.75 0 0 1 1.07 1.05l-3.99 4.99a.75.75 0 0 1-1.08.02L4.324 8.384a.75.75 0 1 1 1.06-1.06l2.094 2.093 3.473-4.425z"/>
-                </svg>Built To Order
+                </svg>Free Shipping
             </div>
             <div class="align-items-center d-flex justify-content-center">
                 <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="#198754" class="bi bi-check" viewBox="0 0 16 16">
@@ -52,57 +93,69 @@
                 </svg>Money Back Guarantee
             </div>
         </div>
-        <div class="align-items-center align-items-lg-stretch d-flex flex-column flex-lg-row justify-content-center">
-            <div class="card mb-3 mx-lg-1 w-100">
-                <div class="card-body">
-                    <div class="card-title fw-bold text-center">Our Product</div>
-                    <ul class="my-2">
-                        <li>Prop your windows open</li>
-                        <li>Prevents pet egress</li>
-                        <li>Lightweight and foolproof</li>
-                    </ul>
+        <div class="row">
+            <div class="col-12 col-md-4 mb-3">
+                <div class="card h-100 w-100">
+                    <div class="card-body">
+                        <div class="card-title fw-bold text-center">Our Product</div>
+                        <ul class="my-2">
+                            <li>Prop your windows open</li>
+                            <li>Prevents pet egress</li>
+                            <li>Lightweight and foolproof</li>
+                        </ul>
+                    </div>
                 </div>
             </div>
-            <div class="card mb-3 mx-lg-1 w-100">
-                <div class="card-body">
-                    <div class="card-title fw-bold text-center">Solid Wood Construction</div>
-                    <ul class="my-2">
-                        <li>1" x 2" wood rails</li>
-                        <li>3/8" inch wood bars</li>
-                        <li>Black or white paint finish</li>
-                    </ul>
+            <div class="col-12 col-md-4 mb-3">
+                <div class="card h-100 w-100">
+                    <div class="card-body">
+                        <div class="card-title fw-bold text-center">Solid Wood Construction</div>
+                        <ul class="my-2">
+                            <li>1" x 2" wood rails</li>
+                            <li>3/8" inch wood bars</li>
+                            <li>Black, White, or Clear finish</li>
+                        </ul>
+                    </div>
                 </div>
             </div>
-            <div class="card mb-3 mx-lg-1 w-100">
-                <div class="card-body">
-                    <div class="card-title fw-bold text-center">Custom Built Fits</div>
-                    <ul class="my-2">
-                        <li>Height (<a href="/how-to-measure.html">you measure</a>)</li>
-                        <li>Width (<a href="/how-to-measure.html">you measure</a>)</li>
-                    </ul>
+            <div class="col-12 col-md-4 mb-3">
+                <div class="card h-100 w-100">
+                    <div class="card-body">
+                        <div class="card-title fw-bold text-center">Custom Built Fits</div>
+                        <ul class="my-2">
+                            <li>Height (<a href="/how-to-measure.html">you measure</a>)</li>
+                            <li>Width (<a href="/how-to-measure.html">you measure</a>)</li>
+                        </ul>
+                    </div>
                 </div>
             </div>
         </div>
-        <div class="align-items-center align-items-lg-stretch d-flex flex-column flex-lg-row justify-content-center">
-            <div class="card mb-3 mx-lg-1 text-center w-100">
-                <div class="card-body">
-                    <div class="card-title fw-bold">Small</div>
-                    <p>Height Inch + Width Inch <= 36"</p>
-                    <a class="btn btn-lg btn-success" href="https://www.ebay.com/usr/interpathway" type="button">$32</a>
+        <div class="row">
+            <div class="col-12 col-lg-3 mb-3">
+                <div class="card text-center window-guard window-sm">
+                    <div class="card-body">
+                        <p class="card-title fw-bold"><span>Small</span></p>
+                        <p><span>Height + Width <= 36"</span></p>
+                        <a class="btn btn-lg btn-success" href="https://www.ebay.com/usr/interpathway" type="button">$40</a>
+                    </div>
                 </div>
             </div>
-            <div class="card mb-3 mx-lg-1 text-center w-100">
-                <div class="card-body">
-                    <div class="card-title fw-bold">Medium</div>
-                    <p>Height Inch + Width Inch <= 64"</p>
-                    <a class="btn btn-lg btn-success" href="https://www.ebay.com/usr/interpathway" type="button">$44</a>
+            <div class="col-12 col-lg-4 mb-3">
+                <div class="card text-center window-guard window-md">
+                    <div class="card-body">
+                        <p class="card-title fw-bold">Medium</p>
+                        <p>Height + Width <= 64"</p>
+                        <a class="btn btn-lg btn-success" href="https://www.ebay.com/usr/interpathway" type="button">$50</a>
+                    </div>
                 </div>
             </div>
-            <div class="card mb-3 mx-lg-1 text-center w-100">
-                <div class="card-body">
-                    <div class="card-title fw-bold">Large</div>
-                    <p>Height Inch + Width Inch <= 84"</p>
-                    <a class="btn btn-lg btn-success" href="https://www.ebay.com/usr/interpathway" type="button">$56</a>
+            <div class="col-12 col-lg-5 mb-3">
+                <div class="card text-center window-guard window-lg">
+                    <div class="card-body">
+                        <p class="card-title fw-bold">Large</p>
+                        <p>Height + Width <= 84"</p>
+                        <a class="btn btn-lg btn-success" href="https://www.ebay.com/usr/interpathway" type="button">$60</a>
+                    </div>
                 </div>
             </div>
         </div>
