@@ -10,20 +10,15 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
 </head>
 <style>
-    .window-guard{border:15px solid #111;margin:0 auto;}
+    .window-guard{--w:5px;border:15px solid #111;}
     .window-sm{
-        --w:5px;
         --n:6;
         background: linear-gradient(90deg, transparent calc(100% - var(--w)), #111 0);
         background-size: calc((100% - var(--n)*var(--w))/(var(--n) + 1) + var(--w)) 100%;
         min-height:150px;
-        p > span {
-            background:rgba(255,255,255,.8);
-            padding:3px;
-        }
+        p > span {background:rgba(255,255,255,.8);padding:3px;}
     }
     .window-md{
-        --w:5px;
         --n:8;
         background: linear-gradient(90deg, transparent calc(100% - var(--w)), #efefef 0);
         background-size: calc((100% - var(--n)*var(--w))/(var(--n) + 1) + var(--w)) 100%;
@@ -31,7 +26,6 @@
         min-height:225px;
     }
     .window-lg{
-        --w:5px;
         --n:10;
         background: linear-gradient(90deg, transparent calc(100% - var(--w)), #f0e0bb 0);
         background-size: calc((100% - var(--n)*var(--w))/(var(--n) + 1) + var(--w)) 100%;
