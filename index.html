@@ -14,7 +14,7 @@
     .window-sm{
         --w:5px;
         --n:6;
-        background: linear-gradient(90deg, #0000 calc(100% - var(--w)), #111 0);
+        background: linear-gradient(90deg, transparent calc(100% - var(--w)), #111 0);
         background-size: calc((100% - var(--n)*var(--w))/(var(--n) + 1) + var(--w)) 100%;
         min-height:150px;
         p > span {
@@ -25,7 +25,7 @@
     .window-md{
         --w:5px;
         --n:8;
-        background: linear-gradient(90deg, #0000 calc(100% - var(--w)), #efefef 0);
+        background: linear-gradient(90deg, transparent calc(100% - var(--w)), #efefef 0);
         background-size: calc((100% - var(--n)*var(--w))/(var(--n) + 1) + var(--w)) 100%;
         border-color:#efefef;
         min-height:225px;
@@ -33,7 +33,7 @@
     .window-lg{
         --w:5px;
         --n:10;
-        background: linear-gradient(90deg, #0000 calc(100% - var(--w)), #f0e0bb 0);
+        background: linear-gradient(90deg, transparent calc(100% - var(--w)), #f0e0bb 0);
         background-size: calc((100% - var(--n)*var(--w))/(var(--n) + 1) + var(--w)) 100%;
         border-color:#f0e0bb;
         min-height:300px;
@@ -133,8 +133,8 @@
         <div class="row">
             <div class="col-12 col-lg-3 mb-3">
                 <div class="card text-center window-guard window-sm">
-                    <div class="card-body">
-                        <p class="card-title fw-bold"><span>Small</span></p>
+                    <div class="align-items-center card-body d-flex flex-column justify-content-center">
+                        <p class="card-title fw-bold lead"><span>Small</span></p>
                         <p><span>Height + Width <= 36"</span></p>
                         <a class="btn btn-lg btn-success" href="https://www.ebay.com/usr/interpathway" type="button">$40</a>
                     </div>
@@ -142,8 +142,8 @@
             </div>
             <div class="col-12 col-lg-4 mb-3">
                 <div class="card text-center window-guard window-md">
-                    <div class="card-body">
-                        <p class="card-title fw-bold">Medium</p>
+                    <div class="align-items-center card-body d-flex flex-column justify-content-center">
+                        <p class="card-title fw-bold lead">Medium</p>
                         <p>Height + Width <= 64"</p>
                         <a class="btn btn-lg btn-success" href="https://www.ebay.com/usr/interpathway" type="button">$50</a>
                     </div>
@@ -151,8 +151,8 @@
             </div>
             <div class="col-12 col-lg-5 mb-3">
                 <div class="card text-center window-guard window-lg">
-                    <div class="card-body">
-                        <p class="card-title fw-bold">Large</p>
+                    <div class="align-items-center card-body d-flex flex-column justify-content-center">
+                        <p class="card-title fw-bold lead">Large</p>
                         <p>Height + Width <= 84"</p>
                         <a class="btn btn-lg btn-success" href="https://www.ebay.com/usr/interpathway" type="button">$60</a>
                     </div>
