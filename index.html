@@ -26,26 +26,25 @@
         --n:6;
         background: linear-gradient(90deg, transparent calc(100% - var(--w)), #111 0);
         background-size: calc((100% - var(--n)*var(--w))/(var(--n) + 1) + var(--w)) 100%;
+        max-width:275px;
         min-height:150px;
     }
     .window-md{
         --n:8;
-        min-height:225px;
+        max-width:400px;
+        min-height:250px;
     }
     .window-lg{
         --n:10;
         background: linear-gradient(90deg, transparent calc(100% - var(--w)), #111 0);
         background-size: calc((100% - var(--n)*var(--w))/(var(--n) + 1) + var(--w)) 100%;
-        min-height:300px;
+        max-width:650px;
+        min-height:350px;
     }
     .window-white{
         background: linear-gradient(90deg, transparent calc(100% - var(--w)), #efefef 0);
         background-size: calc((100% - var(--n)*var(--w))/(var(--n) + 1) + var(--w)) 100%;
         border-color:#efefef;
-    }
-    @media(max-width:991px){
-        .window-sm{max-width: 75%}
-        .window-md{max-width: 85%}
     }
     @media(max-width:400px){
         .window-guard{--n:6;}
@@ -56,6 +55,7 @@
     }
     @media(min-width:992px){
         .column{max-width:67%;}
+        .window-guard{margin:0 auto;}
     }
 </style>
 <body>
@@ -146,7 +146,7 @@
             </div>
         </div>
         <div class="mb-3 row">
-            <div class="col-12 col-lg-3 mb-3">
+            <div class="col-12 mb-3">
                 <div class="card text-center window-guard window-sm">
                     <div class="align-items-center card-body d-flex flex-column justify-content-center">
                         <p class="card-title fw-bold lead"><span>Small</span></p>
@@ -155,7 +155,7 @@
                     </div>
                 </div>
             </div>
-            <div class="col-12 col-lg-4 mb-3">
+            <div class="col-12 mb-3">
                 <div class="card text-center window-guard window-md window-white">
                     <div class="align-items-center card-body d-flex flex-column justify-content-center">
                         <p class="card-title fw-bold lead">Medium</p>
@@ -164,7 +164,7 @@
                     </div>
                 </div>
             </div>
-            <div class="col-12 col-lg-5 mb-3">
+            <div class="col-12 mb-3">
                 <div class="card text-center window-guard window-lg">
                     <div class="align-items-center card-body d-flex flex-column justify-content-center">
                         <p class="card-title fw-bold lead"><span>Large</span></p>
@@ -193,16 +193,11 @@
         <div class="column mx-auto text-center">
             <p>Lüften is the practice of regularly airing out a home by opening windows and inviting a cross breeze for short periods of time. It effectively replaces moist, stale, and carbon dioxide laden indoor air with fresher healthier air.</p>
         </div>
-        <div class="align-items-center d-flex flex-column flex-sm-row justify-content-center lead mb-3 mb-lg-5">
+        <div class="align-items-center d-flex flex-column flex-sm-row justify-content-center lead mb-3">
             <div class="align-items-center d-flex justify-content-center">
                 <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="#198754" class="bi bi-check" viewBox="0 0 16 16">
                     <path d="M10.97 4.97a.75.75 0 0 1 1.07 1.05l-3.99 4.99a.75.75 0 0 1-1.08.02L4.324 8.384a.75.75 0 1 1 1.06-1.06l2.094 2.093 3.473-4.425z"/>
                 </svg>Humidity Control
-            </div>
-            <div class="align-items-center d-flex justify-content-center">
-                <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="#198754" class="bi bi-check" viewBox="0 0 16 16">
-                    <path d="M10.97 4.97a.75.75 0 0 1 1.07 1.05l-3.99 4.99a.75.75 0 0 1-1.08.02L4.324 8.384a.75.75 0 1 1 1.06-1.06l2.094 2.093 3.473-4.425z"/>
-                </svg>Increase Indoor Oxygen
             </div>
             <div class="align-items-center d-flex justify-content-center">
                 <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="#198754" class="bi bi-check" viewBox="0 0 16 16">
@@ -212,9 +207,36 @@
             <div class="align-items-center d-flex justify-content-center">
                 <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="#198754" class="bi bi-check" viewBox="0 0 16 16">
                     <path d="M10.97 4.97a.75.75 0 0 1 1.07 1.05l-3.99 4.99a.75.75 0 0 1-1.08.02L4.324 8.384a.75.75 0 1 1 1.06-1.06l2.094 2.093 3.473-4.425z"/>
+                </svg>Oxygen Increase
+            </div>
+            <div class="align-items-center d-flex justify-content-center">
+                <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="#198754" class="bi bi-check" viewBox="0 0 16 16">
+                    <path d="M10.97 4.97a.75.75 0 0 1 1.07 1.05l-3.99 4.99a.75.75 0 0 1-1.08.02L4.324 8.384a.75.75 0 1 1 1.06-1.06l2.094 2.093 3.473-4.425z"/>
                 </svg>Temperature Management
             </div>
         </div>
+        <div class="column mx-auto text-center">
+            <p><strong>With Wood Window Guards you can keep your windows open taller and longer without worry.</strong></p>
+        </div>
+        <div class="align-items-center d-flex flex-column flex-sm-row justify-content-center lead mb-3 mb-lg-5">
+            <div class="align-items-center d-flex justify-content-center">
+                <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="#198754" class="bi bi-check" viewBox="0 0 16 16">
+                    <path d="M10.97 4.97a.75.75 0 0 1 1.07 1.05l-3.99 4.99a.75.75 0 0 1-1.08.02L4.324 8.384a.75.75 0 1 1 1.06-1.06l2.094 2.093 3.473-4.425z"/>
+                </svg>Capture More Breeze
+            </div>
+            <div class="align-items-center d-flex justify-content-center">
+                <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="#198754" class="bi bi-check" viewBox="0 0 16 16">
+                    <path d="M10.97 4.97a.75.75 0 0 1 1.07 1.05l-3.99 4.99a.75.75 0 0 1-1.08.02L4.324 8.384a.75.75 0 1 1 1.06-1.06l2.094 2.093 3.473-4.425z"/>
+                </svg>Faster Air Exchange
+            </div>
+            <div class="align-items-center d-flex justify-content-center">
+                <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="#198754" class="bi bi-check" viewBox="0 0 16 16">
+                    <path d="M10.97 4.97a.75.75 0 0 1 1.07 1.05l-3.99 4.99a.75.75 0 0 1-1.08.02L4.324 8.384a.75.75 0 1 1 1.06-1.06l2.094 2.093 3.473-4.425z"/>
+                </svg>Refresh Rooms Quickly
+            </div>
+        </div>
+
+
         <div class="mb-3 row">
             <div class="col-12 col-lg-10 offset-lg-1">
                 <div id="carousel" class="align-items-center carousel carousel-fade d-flex justify-content-center overflow-hidden slide" data-bs-ride="carousel">
