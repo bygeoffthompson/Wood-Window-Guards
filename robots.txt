@@ -1,0 +1,7 @@
+User-agent: *
+Disallow: /
+Allow: /$
+Allow: /favicon.ico
+Allow: /order.html
+Allow: /how-to-measure.html
+Allow: /faqs.html
