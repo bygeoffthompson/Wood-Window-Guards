@@ -1,0 +1,27 @@
+CAPITAL EXPENSES
+Drill Press [$105]
+Forstner Bit [$7]
+------------------
+Total $112
+
+MATERIALS FOR DEMO
+6 six foot rails [$36]
+10 four foot dowels [$14]
+2 spray paint [$6]
+-------------------------
+Total $56
+
+
+MATERIALS PRODUCTION
+10 six foot rails [$60]
+10 four foot dowels [$14]
+1 wood filler [$10]
+-------------------------
+Total $84
+
+
+TECHNOLOGY
+Domain Name [$1]
+----------------
+Total $1
+
