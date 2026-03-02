@@ -19,6 +19,7 @@
     </script>
 </head>
 <style>
+    body{background:url(img/bg.jpg) center/100%}
     #carousel{max-height:700px;}
     .window-guard{--w:5px;border:15px solid #111;}
     .window-guard p>span{background:rgba(255,255,255,.9);padding:.5rem;}
@@ -42,9 +43,9 @@
         min-height:350px;
     }
     .window-white{
-        background: linear-gradient(90deg, transparent calc(100% - var(--w)), #efefef 0);
+        background: linear-gradient(90deg, transparent calc(100% - var(--w)), #fff 0);
         background-size: calc((100% - var(--n)*var(--w))/(var(--n) + 1) + var(--w)) 100%;
-        border-color:#efefef;
+        border-color:#fff;
     }
     @media(max-width:400px){
         .window-guard{--n:6;}
