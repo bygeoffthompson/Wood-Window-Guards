@@ -22,11 +22,16 @@
     html{font-size:18px;}
     body{background:url(img/bg.jpg) center/100%}
     #carousel{max-height:600px;}
-    .window-guard{--w:5px;border:15px solid #111;}
+    .window-guard{
+        --w:5px;
+        background:linear-gradient(90deg, transparent calc(100% - var(--w)), #fff 0);
+        background-size:calc((100% - var(--n)*var(--w))/(var(--n) + 1) + var(--w)) 100%;
+        border:15px solid #fff;
+    }
     .window-guard p>span{background:rgba(255,255,255,.9);padding:.5rem;}
     .window-sm{
         --n:6;
-        background: linear-gradient(90deg, transparent calc(100% - var(--w)), #111 0);
+        background: linear-gradient(90deg, transparent calc(100% - var(--w)), #fff 0);
         background-size: calc((100% - var(--n)*var(--w))/(var(--n) + 1) + var(--w)) 100%;
         max-width:275px;
         min-height:150px;
@@ -38,15 +43,10 @@
     }
     .window-lg{
         --n:10;
-        background: linear-gradient(90deg, transparent calc(100% - var(--w)), #111 0);
+        background: linear-gradient(90deg, transparent calc(100% - var(--w)), #fff 0);
         background-size: calc((100% - var(--n)*var(--w))/(var(--n) + 1) + var(--w)) 100%;
         max-width:650px;
         min-height:350px;
-    }
-    .window-white{
-        background: linear-gradient(90deg, transparent calc(100% - var(--w)), #fff 0);
-        background-size: calc((100% - var(--n)*var(--w))/(var(--n) + 1) + var(--w)) 100%;
-        border-color:#fff;
     }
     @media(max-width:400px){
         .window-guard{--n:6;}
@@ -210,7 +210,7 @@
                 </div>
             </div>
             <div class="col-12 mb-3">
-                <div class="card text-center window-guard window-md window-white">
+                <div class="card text-center window-guard window-md">
                     <div class="align-items-center card-body d-flex flex-column justify-content-center">
                         <p class="card-title fw-bold lead">Medium</p>
                         <p>Height + Width <= 44"</p>
