@@ -21,7 +21,8 @@
 <style>
     html{font-size:18px;}
     body{background:url(img/bg.jpg) center/100%}
-    #carousel{max-height:600px;}
+    #photoCarousel{max-height:600px;}
+    #testimonialCarousel{min-height:250px;}
     .window-guard{
         --w:5px;
         background:linear-gradient(90deg, transparent calc(100% - var(--w)), #fff 0);
@@ -309,12 +310,12 @@
                 </a>
             </div>
         </div>
-<!--        <div class="mb-3 mb-lg-4 row">
+        <div class="mb-3 mb-lg-5 row">
             <div class="col-12 col-lg-8 offset-lg-2">
-                <div id="testimonialCarousel" class="align-items-center carousel carousel-fade d-flex justify-content-center overflow-hidden slide text-bg-light text-center" data-bs-ride="testimonialCarousel">
+                <div id="testimonialCarousel" class="align-items-center border border-success-subtle carousel d-flex justify-content-center overflow-hidden slide text-bg-light text-center" data-bs-ride="carousel">
                     <div class="carousel-inner">
                         <div class="active carousel-item">
-                            <figure>
+                            <figure class="p-3">
                                 <blockquote class="blockquote">
                                     <p>This window guard is awesome. Very well made. Ships fast. Very pleased.</p>
                                 </blockquote>
@@ -322,11 +323,19 @@
                             </figure>
                         </div>
                         <div class="carousel-item">
-                            <figure>
+                            <figure class="p-3">
                                 <blockquote class="blockquote">
                                     <p>Great purchase, great quality, highly recommended A+++</p>
                                 </blockquote>
                                 <cite>Gainesville, VA</cite>
+                            </figure>
+                        </div>
+                        <div class="carousel-item">
+                            <figure class="p-3">
+                                <blockquote class="blockquote">
+                                    <p>Super product, just what I needed and was looking for. Great quality. Fast shipping! A+++++</p>
+                                </blockquote>
+                                <cite>Rochester, NY</cite>
                             </figure>
                         </div>
                     </div>
@@ -340,7 +349,7 @@
                     </button>
                 </div>
             </div>
-        </div>-->
+        </div>
         <div class="mb-3 mb-lg-5 row">
             <div class="col-12 col-lg-4 offset-lg-4">
                 <div class="card h-100 shadow w-100">
