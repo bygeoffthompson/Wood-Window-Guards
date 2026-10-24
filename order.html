@@ -54,8 +54,10 @@
                     <div class="card-body">
                         <h1 class="mb-1">Order</h1>
                         <p class="mb-1 small text-muted">Need help measuring? <a href="how-to-measure.html">How To Measure</a></p>
-                        <p class="mb-4 small text-muted">Ships to the United States only.</p>
-                        <div class="mb-3 row g-3">
+                        <p class="mb-4 small text-muted">Ships to the United States only. Order 2 or more guards and save 10%.</p>
+
+                        <!-- Item builder -->
+                        <div class="mb-2 row g-3 align-items-end">
                             <div class="col-12 col-sm-4">
                                 <label for="height" class="form-label fw-bold">Height <span class="text-danger">*</span></label>
                                 <select id="height" class="form-select form-select-lg"></select>
@@ -65,14 +67,30 @@
                                 <select id="width" class="form-select form-select-lg"></select>
                             </div>
                             <div class="col-12 col-sm-4">
-                                <label for="qty" class="form-label fw-bold">Quantity <span class="text-danger">*</span></label>
-                                <select id="qty" class="form-select form-select-lg"></select>
+                                <button id="addBtn" class="btn btn-primary btn-lg">Add to Cart</button>
                             </div>
                         </div>
-                        <div class="mb-4 table-responsive">
-                            <table class="table table-bordered mb-0" id="priceDisplay"><tbody></tbody></table>
+                        <!-- Cart -->
+                        <div id="cartSection" class="d-none">
+                            <h5 class="mb-2">Cart</h5>
+                            <div class="table-responsive mb-3">
+                                <table class="table table-bordered mb-0">
+                                    <thead class="table-light">
+                                        <tr>
+                                            <th>Size</th>
+                                            <th class="text-center">Qty</th>
+                                            <th class="text-end">Unit</th>
+                                            <th class="text-end">Line Total</th>
+                                            <th></th>
+                                        </tr>
+                                    </thead>
+                                    <tbody id="cartBody"></tbody>
+                                    <tfoot id="cartFoot"></tfoot>
+                                </table>
+                            </div>
+                            <div id="paypal-button-container"></div>
                         </div>
-                        <div id="paypal-button-container"></div>
+
                         <div id="order-success" class="alert alert-success mt-3 d-none">
                             <strong>Order placed!</strong> You'll receive a PayPal confirmation email. Your guard ships within one week via tracked ground shipping.
                         </div>
@@ -87,10 +105,11 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js" integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI" crossorigin="anonymous"></script>
     <script src="https://www.paypal.com/sdk/js?client-id=BAASExiPMBB0ArjbtyM4tQZ-lHRBwKZadq3Z53fX44ZEsuS_riBsf_Tb8uLreLTp5RqWlw1gdFiPCithkQ&currency=USD"></script>
     <script>
-        const heightSel = document.getElementById('height');
-        const widthSel  = document.getElementById('width');
-        const qtySel    = document.getElementById('qty');
-        const priceDisplay = document.querySelector('#priceDisplay tbody');
+        const heightSel   = document.getElementById('height');
+        const widthSel    = document.getElementById('width');
+        const cartSection = document.getElementById('cartSection');
+        const cartBody    = document.getElementById('cartBody');
+        const cartFoot    = document.getElementById('cartFoot');
 
         for (let h = 6; h <= 18; h++) {
             const o = document.createElement('option');
@@ -102,12 +121,6 @@
             o.value = w; o.textContent = w + '"';
             widthSel.appendChild(o);
         }
-        for (let q = 1; q <= 10; q++) {
-            const o = document.createElement('option');
-            o.value = q; o.textContent = q;
-            qtySel.appendChild(o);
-        }
-
         function tier(h, w) {
             const sum = h + w;
             if (sum <= 34) return { name: 'Small',  price: 32 };
@@ -115,55 +128,91 @@
             return             { name: 'Large',  price: 48 };
         }
 
-        function calc() {
-            const h = parseInt(heightSel.value);
-            const w = parseInt(widthSel.value);
-            const q = parseInt(qtySel.value);
-            const { name, price } = tier(h, w);
-            const subtotal = price * q;
-            const discount = q >= 2 ? +(subtotal * 0.1).toFixed(2) : 0;
+        let cart = []; // [{h, w, q, tierName, price}]
+
+        function calcCart() {
+            const totalQty = cart.reduce((s, i) => s + i.q, 0);
+            const subtotal = cart.reduce((s, i) => s + i.price * i.q, 0);
+            const discount = totalQty >= 2 ? +(subtotal * 0.1).toFixed(2) : 0;
             const shipping = 12;
             const total    = +(subtotal - discount + shipping).toFixed(2);
-            return { h, w, q, name, price, subtotal, discount, shipping, total };
+            return { totalQty, subtotal, discount, shipping, total };
         }
 
-        function updateDisplay() {
-            const { h, w, q, name, price, subtotal, discount, shipping, total } = calc();
-            let rows = `
-                <tr><td>Size</td><td>${h}" Height &times; ${w}" Width <strong class="text-uppercase" style="font-size:.75rem;">${name}</strong></td></tr>
-                <tr><td>Price</td><td>$${price.toFixed(2)} &times; ${q}</td></tr>`;
-            if (q > 1) {
-                rows += `
-                <tr><td>Subtotal</td><td>$${subtotal.toFixed(2)}</td></tr>
-                <tr><td class="text-success fw-bold">10% Off</td><td class="text-success fw-bold">&minus;$${discount.toFixed(2)}</td></tr>`;
+        function renderCart() {
+            if (cart.length === 0) {
+                cartSection.classList.add('d-none');
+                return;
             }
-            rows += `
-                <tr><td>Shipping</td><td>$${shipping.toFixed(2)}</td></tr>
-                <tr class="fw-bold table-active"><td>Total</td><td>$${total.toFixed(2)}</td></tr>`;
-            priceDisplay.innerHTML = rows;
+            cartSection.classList.remove('d-none');
+
+            const { subtotal, discount, shipping, total, totalQty } = calcCart();
+
+            cartBody.innerHTML = cart.map((item, idx) => `
+                <tr>
+                    <td>${item.h}" H &times; ${item.w}" W <span class="text-uppercase text-muted" style="font-size:.7rem">${item.tierName}</span></td>
+                    <td class="text-center"><input type="number" class="form-control form-control-sm text-center" style="width:4rem;margin:auto" value="${item.q}" min="1" max="10" onchange="updateQty(${idx}, this.value)"></td>
+                    <td class="text-end">$${item.price.toFixed(2)}</td>
+                    <td class="text-end">$${(item.price * item.q).toFixed(2)}</td>
+                    <td class="text-center"><button class="btn btn-sm btn-outline-danger py-0" onclick="removeItem(${idx})">&times;</button></td>
+                </tr>
+            `).join('');
+
+            let footRows = '';
+            if (totalQty >= 2) {
+                footRows += `
+                    <tr><td colspan="3" class="text-end">Subtotal</td><td class="text-end">$${subtotal.toFixed(2)}</td><td></td></tr>
+                    <tr class="fw-bold"><td colspan="3" class="text-end text-danger small">10% Off</td><td class="text-end text-danger small">&minus;$${discount.toFixed(2)}</td><td></td></tr>`;
+            }
+            footRows += `
+                <tr><td colspan="3" class="text-end">Shipping</td><td class="text-end">$${shipping.toFixed(2)}</td><td></td></tr>
+                <tr class="fw-bold table-active"><td colspan="3" class="text-end">Total</td><td class="text-end">$${total.toFixed(2)}</td><td></td></tr>`;
+            cartFoot.innerHTML = footRows;
         }
 
-        [heightSel, widthSel, qtySel].forEach(el => el.addEventListener('change', updateDisplay));
-        updateDisplay();
+        function removeItem(idx) {
+            cart.splice(idx, 1);
+            renderCart();
+        }
+
+        function updateQty(idx, val) {
+            const q = Math.min(Math.max(parseInt(val) || 1, 1), 10);
+            cart[idx].q = q;
+            renderCart();
+        }
+
+        document.getElementById('addBtn').addEventListener('click', () => {
+            const h = parseInt(heightSel.value);
+            const w = parseInt(widthSel.value);
+            const q = 1;
+            const { name, price } = tier(h, w);
+            const existing = cart.find(i => i.h === h && i.w === w);
+            if (existing) {
+                existing.q = Math.min(existing.q + q, 10);
+            } else {
+                cart.push({ h, w, q, tierName: name, price });
+            }
+            renderCart();
+        });
 
         paypal.Buttons({
             createOrder(data, actions) {
-                const { h, w, q, name, subtotal, discount, shipping, total } = calc();
-                const itemTotal = +(subtotal - discount).toFixed(2);
+                const { subtotal, discount, shipping, total } = calcCart();
                 return actions.order.create({
                     purchase_units: [{
-                        description: `Wood Window Guard ${h}" H x ${w}" W (${name}) x${q}`,
-                        items: [{
-                            name: `Wood Window Guard ${h}" H x ${w}" W (${name})`,
-                            unit_amount: { value: (itemTotal / q).toFixed(2), currency_code: 'USD' },
-                            quantity: String(q),
+                        description: `Wood Window Guards (${cart.length} size${cart.length > 1 ? 's' : ''})`,
+                        items: cart.map(item => ({
+                            name: `Wood Window Guard ${item.h}" H x ${item.w}" W (${item.tierName})`,
+                            unit_amount: { value: item.price.toFixed(2), currency_code: 'USD' },
+                            quantity: String(item.q),
                             category: 'PHYSICAL_GOODS'
-                        }],
+                        })),
                         amount: {
                             value: total.toFixed(2),
                             currency_code: 'USD',
                             breakdown: {
-                                item_total: { value: itemTotal.toFixed(2), currency_code: 'USD' },
+                                item_total: { value: subtotal.toFixed(2),  currency_code: 'USD' },
+                                discount:   { value: discount.toFixed(2),  currency_code: 'USD' },
                                 shipping:   { value: shipping.toFixed(2),  currency_code: 'USD' }
                             }
                         }
