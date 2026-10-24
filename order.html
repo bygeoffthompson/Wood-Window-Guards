@@ -40,29 +40,126 @@
                     <li class="nav-item">
                         <a class="nav-link active" href="order.html">Order</a>
                     </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="about.html">About</a>
+                    </li>
                 </ul>
             </div>
         </div>
     </nav>
     <div class="container">
-        <div class="mb-5 row">
-            <div class="col-12">
+        <div class="mb-4 row">
+            <div class="col-12 col-lg-8 offset-lg-2">
                 <div class="card shadow">
                     <div class="card-body">
-                        <h1>How To Order</h1>
-                        <p>Orders are processed through my personal eBay account.</p>
-                        <p>Please take your measurements to the eBay product listing below to complete purchase.</p>
+                        <h1 class="mb-1">Order</h1>
+                        <p class="mb-4 small text-muted">Need help measuring? <a href="how-to-measure.html">How To Measure</a></p>
+                        <div class="mb-3 row g-3">
+                            <div class="col-12 col-sm-4">
+                                <label for="height" class="form-label fw-bold">Height</label>
+                                <select id="height" class="form-select form-select-lg"></select>
+                            </div>
+                            <div class="col-12 col-sm-4">
+                                <label for="width" class="form-label fw-bold">Width</label>
+                                <select id="width" class="form-select form-select-lg"></select>
+                            </div>
+                            <div class="col-12 col-sm-4">
+                                <label for="qty" class="form-label fw-bold">Quantity</label>
+                                <select id="qty" class="form-select form-select-lg"></select>
+                            </div>
+                        </div>
+                        <div id="priceDisplay" class="alert alert-secondary mb-4"></div>
+                        <div id="paypal-button-container"></div>
+                        <div id="order-success" class="alert alert-success mt-3 d-none">
+                            <strong>Order placed!</strong> You'll receive a PayPal confirmation email. Your guard ships within 3 business days via UPS.
+                        </div>
+                        <div id="order-error" class="alert alert-danger mt-3 d-none">
+                            Something went wrong. Please try again.
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
-        <div class="d-flex flex-column flex-md-row gap-3 mb-3">
-            <a href="https://www.ebay.com/itm/257384945637" target="_blank" class="btn btn-lg btn-success shadow">
-                <svg fill="#000000" width="50" height="50" viewBox="-2 -7.5 24 24" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMinYMin" class="jam jam-ebay"><path d='M18.853 2.229L17.16 5.81l-1.7-3.583h-1.183l.303.598c-.4-.63-1.191-.79-1.914-.79-2.115 0-2.25 1.22-2.25 1.414h1.052s.055-.712 1.125-.712c.695 0 1.233.335 1.233.979v.23h-1.233c-1.368 0-2.196.351-2.433 1.063.024-.158.037-.322.037-.491 0-1.369-.876-2.469-2.356-2.469-1.386 0-1.817.788-1.817.788V.202H5.007v4.011c-.015-.871-.552-2.177-2.43-2.177C1.17 2.037 0 2.664 0 4.559c0 1.5.788 2.445 2.613 2.445 2.148 0 2.286-1.49 2.286-1.49H3.86s-.224.802-1.31.802c-.884 0-1.52-.629-1.52-1.51h3.979v1.246c0 .332-.023.799-.023.799h.993s.036-.335.036-.641c0 0 .49.808 1.824.808 1.138 0 1.98-.673 2.259-1.71-.005.054-.009.11-.009.168 0 1.007.8 1.555 1.882 1.555 1.474 0 1.949-.857 1.949-.857 0 .341.025.677.025.677h.935s-.036-.417-.036-.683V3.866c0-.309-.048-.566-.135-.782l1.897 3.746-.892 1.779h1.125l3.088-6.38h-1.073zM1.053 4.1c0-.864.749-1.356 1.487-1.356.842 0 1.416.543 1.416 1.356H1.053zM7.59 6.295c-1.018 0-1.567-.837-1.567-1.764 0-.864.492-1.755 1.56-1.755.954 0 1.56.745 1.56 1.745 0 1.072-.7 1.774-1.553 1.774zm6.235-1.354c0 .4-.234 1.39-1.61 1.39-.752 0-1.076-.396-1.076-.855 0-.835 1.088-.84 2.686-.84v.305z' /></svg>
-                Order Now
-            </a>
-        </div>
     </div>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js" integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI" crossorigin="anonymous"></script>
+    <script src="https://www.paypal.com/sdk/js?client-id=BAASExiPMBB0ArjbtyM4tQZ-lHRBwKZadq3Z53fX44ZEsuS_riBsf_Tb8uLreLTp5RqWlw1gdFiPCithkQ&currency=USD"></script>
+    <script>
+        const heightSel = document.getElementById('height');
+        const widthSel  = document.getElementById('width');
+        const qtySel    = document.getElementById('qty');
+        const priceDisplay = document.getElementById('priceDisplay');
+
+        for (let h = 6; h <= 18; h++) {
+            const o = document.createElement('option');
+            o.value = h; o.textContent = h + '"';
+            if (h === 10) o.selected = true;
+            heightSel.appendChild(o);
+        }
+        for (let w = 18; w <= 36; w++) {
+            const o = document.createElement('option');
+            o.value = w; o.textContent = w + '"';
+            if (w === 22) o.selected = true;
+            widthSel.appendChild(o);
+        }
+        for (let q = 1; q <= 10; q++) {
+            const o = document.createElement('option');
+            o.value = q; o.textContent = q;
+            qtySel.appendChild(o);
+        }
+
+        function tier(h, w) {
+            const sum = h + w;
+            if (sum <= 34) return { name: 'Small',  price: 32 };
+            if (sum <= 44) return { name: 'Medium', price: 40 };
+            return             { name: 'Large',  price: 48 };
+        }
+
+        function calc() {
+            const h = parseInt(heightSel.value);
+            const w = parseInt(widthSel.value);
+            const q = parseInt(qtySel.value);
+            const { name, price } = tier(h, w);
+            const subtotal = price * q;
+            const discount = q >= 2 ? +(subtotal * 0.1).toFixed(2) : 0;
+            const total    = +(subtotal - discount).toFixed(2);
+            return { h, w, q, name, price, subtotal, discount, total };
+        }
+
+        function updateDisplay() {
+            const { h, w, q, name, price, subtotal, discount, total } = calc();
+            let html = `<span class="fw-bold">${h}" H &times; ${w}" W</span> &mdash; ${name} &mdash; $${price.toFixed(2)}/each`;
+            if (q > 1) {
+                html += `<br>${q} &times; $${price.toFixed(2)} = $${subtotal.toFixed(2)}`;
+                html += `<br><span class="text-success fw-bold">10% off &minus;$${discount.toFixed(2)}</span>`;
+            }
+            html += `<br><strong>Total: $${total.toFixed(2)}</strong>`;
+            priceDisplay.innerHTML = html;
+        }
+
+        [heightSel, widthSel, qtySel].forEach(el => el.addEventListener('change', updateDisplay));
+        updateDisplay();
+
+        paypal.Buttons({
+            createOrder(data, actions) {
+                const { h, w, q, name, total } = calc();
+                return actions.order.create({
+                    purchase_units: [{
+                        description: `Wood Window Guard ${h}" H x ${w}" W (${name}) x${q}`,
+                        amount: { value: total.toFixed(2), currency_code: 'USD' }
+                    }]
+                });
+            },
+            onApprove(data, actions) {
+                return actions.order.capture().then(() => {
+                    document.getElementById('paypal-button-container').classList.add('d-none');
+                    document.getElementById('order-success').classList.remove('d-none');
+                });
+            },
+            onError(err) {
+                document.getElementById('order-error').classList.remove('d-none');
+                console.error(err);
+            }
+        }).render('#paypal-button-container');
+    </script>
 </body>
 </html>
