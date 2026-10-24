@@ -53,22 +53,25 @@
                 <div class="card shadow">
                     <div class="card-body">
                         <h1 class="mb-1">Order</h1>
-                        <p class="mb-4 small text-muted">Need help measuring? <a href="how-to-measure.html">How To Measure</a></p>
+                        <p class="mb-1 small text-muted">Need help measuring? <a href="how-to-measure.html">How To Measure</a></p>
+                        <p class="mb-4 small text-muted">Ships to the United States only.</p>
                         <div class="mb-3 row g-3">
                             <div class="col-12 col-sm-4">
-                                <label for="height" class="form-label fw-bold">Height</label>
+                                <label for="height" class="form-label fw-bold">Height <span class="text-danger">*</span></label>
                                 <select id="height" class="form-select form-select-lg"></select>
                             </div>
                             <div class="col-12 col-sm-4">
-                                <label for="width" class="form-label fw-bold">Width</label>
+                                <label for="width" class="form-label fw-bold">Width <span class="text-danger">*</span></label>
                                 <select id="width" class="form-select form-select-lg"></select>
                             </div>
                             <div class="col-12 col-sm-4">
-                                <label for="qty" class="form-label fw-bold">Quantity</label>
+                                <label for="qty" class="form-label fw-bold">Quantity <span class="text-danger">*</span></label>
                                 <select id="qty" class="form-select form-select-lg"></select>
                             </div>
                         </div>
-                        <div id="priceDisplay" class="alert alert-secondary mb-4"></div>
+                        <div class="mb-4 table-responsive">
+                            <table class="table table-bordered mb-0" id="priceDisplay"><tbody></tbody></table>
+                        </div>
                         <div id="paypal-button-container"></div>
                         <div id="order-success" class="alert alert-success mt-3 d-none">
                             <strong>Order placed!</strong> You'll receive a PayPal confirmation email. Your guard ships within 3 business days via UPS.
@@ -87,18 +90,16 @@
         const heightSel = document.getElementById('height');
         const widthSel  = document.getElementById('width');
         const qtySel    = document.getElementById('qty');
-        const priceDisplay = document.getElementById('priceDisplay');
+        const priceDisplay = document.querySelector('#priceDisplay tbody');
 
         for (let h = 6; h <= 18; h++) {
             const o = document.createElement('option');
             o.value = h; o.textContent = h + '"';
-            if (h === 10) o.selected = true;
             heightSel.appendChild(o);
         }
         for (let w = 18; w <= 36; w++) {
             const o = document.createElement('option');
             o.value = w; o.textContent = w + '"';
-            if (w === 22) o.selected = true;
             widthSel.appendChild(o);
         }
         for (let q = 1; q <= 10; q++) {
@@ -121,19 +122,25 @@
             const { name, price } = tier(h, w);
             const subtotal = price * q;
             const discount = q >= 2 ? +(subtotal * 0.1).toFixed(2) : 0;
-            const total    = +(subtotal - discount).toFixed(2);
-            return { h, w, q, name, price, subtotal, discount, total };
+            const shipping = 12;
+            const total    = +(subtotal - discount + shipping).toFixed(2);
+            return { h, w, q, name, price, subtotal, discount, shipping, total };
         }
 
         function updateDisplay() {
-            const { h, w, q, name, price, subtotal, discount, total } = calc();
-            let html = `<span class="fw-bold">${h}" H &times; ${w}" W</span> &mdash; ${name} &mdash; $${price.toFixed(2)}/each`;
+            const { h, w, q, name, price, subtotal, discount, shipping, total } = calc();
+            let rows = `
+                <tr><td>Size</td><td>${h}" Height &times; ${w}" Width <strong class="text-uppercase" style="font-size:.75rem;">${name}</strong></td></tr>
+                <tr><td>Price</td><td>$${price.toFixed(2)} &times; ${q}</td></tr>`;
             if (q > 1) {
-                html += `<br>${q} &times; $${price.toFixed(2)} = $${subtotal.toFixed(2)}`;
-                html += `<br><span class="text-success fw-bold">10% off &minus;$${discount.toFixed(2)}</span>`;
+                rows += `
+                <tr><td>Subtotal</td><td>$${subtotal.toFixed(2)}</td></tr>
+                <tr><td class="text-success fw-bold">10% Off</td><td class="text-success fw-bold">&minus;$${discount.toFixed(2)}</td></tr>`;
             }
-            html += `<br><strong>Total: $${total.toFixed(2)}</strong>`;
-            priceDisplay.innerHTML = html;
+            rows += `
+                <tr><td>Shipping</td><td>$${shipping.toFixed(2)}</td></tr>
+                <tr class="fw-bold table-active"><td>Total</td><td>$${total.toFixed(2)}</td></tr>`;
+            priceDisplay.innerHTML = rows;
         }
 
         [heightSel, widthSel, qtySel].forEach(el => el.addEventListener('change', updateDisplay));
