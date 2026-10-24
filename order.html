@@ -50,13 +50,9 @@
     <div class="container">
         <div class="mb-4 row">
             <div class="col-12 col-lg-8 offset-lg-2">
-                <div class="card shadow">
+                <div class="card mb-4 shadow">
                     <div class="card-body">
-                        <h1 class="mb-1">Order</h1>
-                        <p class="mb-1 small text-muted">Need help measuring? <a href="how-to-measure.html">How To Measure</a></p>
-                        <p class="mb-4 small text-muted">Ships to the United States only. Order 2 or more guards and save 10%.</p>
-
-                        <!-- Item builder -->
+                        <h1>Order</h1>
                         <div class="mb-2 row g-3 align-items-end">
                             <div class="col-12 col-sm-4">
                                 <label for="height" class="form-label fw-bold">Height <span class="text-danger">*</span></label>
@@ -67,10 +63,9 @@
                                 <select id="width" class="form-select form-select-lg"></select>
                             </div>
                             <div class="col-12 col-sm-4">
-                                <button id="addBtn" class="btn btn-primary btn-lg">Add to Cart</button>
+                                <button id="addBtn" class="btn btn-primary btn-lg shadow">Add to Cart</button>
                             </div>
                         </div>
-                        <!-- Cart -->
                         <div id="cartSection" class="d-none">
                             <h5 class="mb-2">Cart</h5>
                             <div class="table-responsive mb-3">
@@ -90,15 +85,15 @@
                             </div>
                             <div id="paypal-button-container"></div>
                         </div>
-
                         <div id="order-success" class="alert alert-success mt-3 d-none">
-                            <strong>Order placed!</strong> You'll receive a PayPal confirmation email. Your guard ships within one week via tracked ground shipping.
+                            <strong>Success!</strong> You will receive a PayPal order confirmation email shortly. Your order will ship within one week.
                         </div>
                         <div id="order-error" class="alert alert-danger mt-3 d-none">
-                            Something went wrong. Please try again.
+                            <strong>Error</strong> Something went wrong. Please try again.
                         </div>
                     </div>
                 </div>
+                <p class="alert alert-light small">Web orders are shipped to the United States only. Email <a href="mailto:woodwindowguards@gmail.com">woodwindowguards@gmail.com</a> for an international shipping quote.</p>
             </div>
         </div>
     </div>
@@ -123,8 +118,8 @@
         }
         function tier(h, w) {
             const sum = h + w;
-            if (sum <= 34) return { name: 'Small',  price: 32 };
-            if (sum <= 44) return { name: 'Medium', price: 40 };
+            if (sum <= 34) return { name: 'Small',  price: 28 };
+            if (sum <= 44) return { name: 'Medium', price: 38 };
             return             { name: 'Large',  price: 48 };
         }
 
@@ -154,7 +149,7 @@
                     <td class="text-center"><input type="number" class="form-control form-control-sm text-center" style="width:4rem;margin:auto" value="${item.q}" min="1" max="10" onchange="updateQty(${idx}, this.value)"></td>
                     <td class="text-end">$${item.price.toFixed(2)}</td>
                     <td class="text-end">$${(item.price * item.q).toFixed(2)}</td>
-                    <td class="text-center"><button class="btn btn-sm btn-outline-danger py-0" onclick="removeItem(${idx})">&times;</button></td>
+                    <td class="text-center"><button class="btn btn-sm btn-outline-danger py-0 shadow" onclick="removeItem(${idx})">&times;</button></td>
                 </tr>
             `).join('');
 
