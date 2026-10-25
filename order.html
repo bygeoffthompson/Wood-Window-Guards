@@ -64,7 +64,7 @@
                                 <select id="width" class="form-select form-select-lg"></select>
                             </div>
                             <div class="col-12 col-sm-4">
-                                <button id="addBtn" class="btn btn-primary btn-lg shadow">Add to Cart</button>
+                                <button id="addBtn" class="btn btn-primary btn-lg shadow">Add Item</button>
                             </div>
                         </div>
                         <div id="cartSection">
@@ -80,7 +80,7 @@
                                             <th></th>
                                         </tr>
                                     </thead>
-                                    <tbody id="cartBody"><tr class="opacity-50"><td>Add to Cart</td><td></td><td></td><td></td><td></td></tr></tbody>
+                                    <tbody id="cartBody"><tr class="opacity-50"><td><small>Add Item(s)</small></td><td></td><td></td><td></td><td></td></tr></tbody>
                                     <tfoot id="cartFoot"></tfoot>
                                 </table>
                             </div>
@@ -122,9 +122,9 @@
         }
         function tier(h, w) {
             const sum = h + w;
-            if (sum <= 34) return { name: 'Small',  price: 32 };
-            if (sum <= 44) return { name: 'Medium', price: 42 };
-            return             { name: 'Large',  price: 52 };
+            if (sum <= 34) return { name: 'Small',  price: 30 };
+            if (sum <= 44) return { name: 'Medium', price: 40 };
+            return             { name: 'Large',  price: 50 };
         }
 
         let cart = []; // [{h, w, q, tierName, price}]
@@ -133,7 +133,7 @@
             const totalQty = cart.reduce((s, i) => s + i.q, 0);
             const subtotal = cart.reduce((s, i) => s + i.price * i.q, 0);
             const discount = totalQty >= 2 ? +(subtotal * 0.1).toFixed(2) : 0;
-            const shipping = 12;
+            const shipping = 15;
             const total    = +(subtotal - discount + shipping).toFixed(2);
             return { totalQty, subtotal, discount, shipping, total };
         }
@@ -141,7 +141,7 @@
         function renderCart() {
             const paypalContainer = document.getElementById('paypal-button-container');
             if (cart.length === 0) {
-                cartBody.innerHTML = '<tr class="opacity-50"><td>Add to Cart</td><td></td><td></td><td></td><td></td></tr>';
+                cartBody.innerHTML = '<tr class="opacity-50"><td><small>Add Item(s)</small></td><td></td><td></td><td></td><td></td></tr>';
                 cartFoot.innerHTML = '';
                 paypalContainer.classList.add('paypal-disabled');
                 return;
